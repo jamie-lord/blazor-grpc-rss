@@ -16,7 +16,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var request = new Request { Name = "" };
-        _items = (await ItemsClient.GetItemsAsync(request)).Items.ToList();
+        _items = (await ItemsClient.GetItemsAsync(new Google.Protobuf.WellKnownTypes.Empty())).Items.ToList();
     }
 }

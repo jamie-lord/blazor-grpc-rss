@@ -1,13 +1,10 @@
 ﻿syntax = "proto3";
+import "google/protobuf/empty.proto";
 option csharp_namespace = "GrpcItems";
 package items;
 
 service Items { 
-    rpc GetItems (Request) returns (Reply);
-}
-
-message Request {
-    string name = 1;
+    rpc GetItems (google.protobuf.Empty) returns (Reply);
 }
 
 message Reply {
