@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.28.0-dev202002160801" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.28.0-dev202002160801" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rss.Shared\Rss.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
