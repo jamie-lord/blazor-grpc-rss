@@ -4,10 +4,12 @@
 
 <h1>Items</h1>
 
-@foreach (var item in _items)
-{
-    <a href="@item.Link">@item.Title</a>
-}
+<ul>
+    @foreach (var item in _items)
+    {
+        <li><a href="@item.Link">@item.Title</a></li>
+    }
+</ul>
 
 @code {
     private List<Item> _items = new List<Item>();
