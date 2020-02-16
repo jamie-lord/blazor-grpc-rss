@@ -1,24 +1,20 @@
 ﻿@page "/"
-@using GrpcGreeter
-@inject Greeter.GreeterClient GreeterClient
+@using GrpcItems
+@inject Items.ItemsClient ItemsClient
 
-<h1>Invoke gRPC service</h1>
+<h1>Items</h1>
 
-<p>
-    <input @bind="yourName" placeholder="Type your name" />
-    <button @onclick="GetGreeting" class="btn btn-primary">Call gRPC service</button>
-</p>
-
-Server response: <strong>@serverResponse</strong>
+@foreach (var item in _items)
+{
+    <a href="@item.Link">@item.Title</a>
+}
 
 @code {
-    string yourName = "Bert";
-    string serverResponse;
+    private List<Item> _items = new List<Item>();
 
-    async Task GetGreeting()
+    protected override async Task OnInitializedAsync()
     {
-        var request = new HelloRequest { Name = yourName };
-        var reply = await GreeterClient.SayHelloAsync(request);
-        serverResponse = reply.Message;
+        var request = new Request { Name = "" };
+        _items = (await ItemsClient.GetItemsAsync(request)).Items.ToList();
     }
 }

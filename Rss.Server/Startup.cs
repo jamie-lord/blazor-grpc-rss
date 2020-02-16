@@ -39,6 +39,7 @@ namespace Rss.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GreeterService>().EnableGrpcWeb().RequireCors(cors => cors.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5002"));
+                endpoints.MapGrpcService<ItemService>().EnableGrpcWeb().RequireCors(cors => cors.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5002"));
 
                 endpoints.MapGet("/", async context =>
                 {

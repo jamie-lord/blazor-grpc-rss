@@ -23,6 +23,7 @@
   <ItemGroup>
     <!-- Share .proto file with backend server to ensure consistency. Alternatively you could copy it into this project. -->
     <Protobuf Include="..\Rss.Shared\greet.proto" />
+    <Protobuf Include="..\Rss.Shared\items.proto" />
   </ItemGroup>
 
 </Project>
