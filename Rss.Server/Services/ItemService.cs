@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CodeHollow.FeedReader;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -12,13 +13,23 @@ namespace Rss.Server.Services
         {
             Feed feed = await FeedReader.ReadAsync("https://www.theguardian.com/world/rss");
             var reply = new Reply();
-            foreach (FeedItem item in feed.Items)
+            foreach (FeedItem feedItem in feed.Items)
             {
-                reply.Items.Add(new Item
+                var item = new Item
                 {
-                    Link = item.Link,
-                    Title = item.Title
-                });
+                    Link = feedItem.Link,
+                    Title = feedItem.Title,
+                    PublishDate = feedItem.PublishingDate.HasValue ? feedItem.PublishingDate.Value.ToTimestamp() : DateTime.Now.ToTimestamp()
+                };
+                if (!string.IsNullOrWhiteSpace(feedItem.Author))
+                {
+                    item.Author = feedItem.Author;
+                }
+                if (!string.IsNullOrWhiteSpace(feedItem.Content))
+                {
+                    item.Content = feedItem.Content;
+                }
+                reply.Items.Add(item);
             }
             return reply;
         }

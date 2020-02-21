@@ -7,7 +7,12 @@
 <ul>
     @foreach (var item in _items)
     {
-        <li><a href="@item.Link">@item.Title</a></li>
+        <li>
+            <a href="@item.Link">@item.Title</a>
+            <p>@item.PublishDate</p>
+            <p>@item.Author</p>
+            <p>@item.Content</p>
+        </li>
     }
 </ul>
 

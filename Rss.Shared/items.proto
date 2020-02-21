@@ -1,5 +1,6 @@
 ﻿syntax = "proto3";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 option csharp_namespace = "GrpcItems";
 package items;
 
@@ -14,4 +15,7 @@ message Reply {
 message Item {
     string title = 1;
     string link = 2;
+    google.protobuf.Timestamp publishDate = 3;
+    string author = 4;
+    string content = 5;
 }
