@@ -15,11 +15,12 @@ message Reply {
 }
 
 message Item {
-    string title = 1;
-    string link = 2;
-    google.protobuf.Timestamp publishDate = 3;
-    string author = 4;
-    string content = 5;
+    string sourceTitle = 1;
+    string title = 2;
+    string link = 3;
+    google.protobuf.Timestamp publishDate = 4;
+    string author = 5;
+    string content = 6;
 }
 
 message ArticleSource {
