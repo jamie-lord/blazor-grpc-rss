@@ -1,11 +1,13 @@
 ﻿syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 option csharp_namespace = "GrpcItems";
 package items;
 
 service Items { 
     rpc GetItems (google.protobuf.Empty) returns (Reply);
+    rpc GetFullContent (ArticleSource) returns (Article);
 }
 
 message Reply {
@@ -18,4 +20,22 @@ message Item {
     google.protobuf.Timestamp publishDate = 3;
     string author = 4;
     string content = 5;
+}
+
+message ArticleSource {
+    string uri = 1;
+}
+
+message Article {
+    google.protobuf.Duration timeToRead = 1;
+    int32 length = 2;
+    string siteName = 3;
+    string Author = 4;
+    string Language = 5;
+    string excerpt = 6;
+    string content = 7;
+    string featuredImage = 8;
+    string byLine = 9;
+    string title = 10;
+    google.protobuf.Timestamp publishDate = 11;
 }

@@ -1,0 +1,19 @@
+﻿@page "/article/{uri}"
+@using GrpcItems
+@inject Items.ItemsClient ItemsClient
+
+<h1>@_article.Title</h1>
+
+@_article.Content
+
+@code {
+    [Parameter]
+    public string Uri { get; set; }
+
+    private GrpcItems.Article _article = new GrpcItems.Article();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _article = await ItemsClient.GetFullContentAsync(new ArticleSource { Uri = System.Web.HttpUtility.UrlDecode(this.Uri) });
+    }
+}

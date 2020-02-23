@@ -8,7 +8,7 @@
     @foreach (var item in _items)
     {
         <li>
-            <a href="@item.Link">@item.Title</a>
+            <a href="/article/@EncodedUri(item.Link)">@item.Title</a>
             <p>@item.PublishDate</p>
             <p>@item.Author</p>
             <p>@item.Content</p>
@@ -22,5 +22,10 @@
     protected override async Task OnInitializedAsync()
     {
         _items = (await ItemsClient.GetItemsAsync(new Google.Protobuf.WellKnownTypes.Empty())).Items.ToList();
+    }
+
+    private string EncodedUri(string uri)
+    {
+        return System.Web.HttpUtility.UrlEncode(uri);
     }
 }

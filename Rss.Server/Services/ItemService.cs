@@ -4,6 +4,7 @@ using CodeHollow.FeedReader;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcItems;
+using SmartReader;
 
 namespace Rss.Server.Services
 {
@@ -32,6 +33,33 @@ namespace Rss.Server.Services
                 reply.Items.Add(item);
             }
             return reply;
+        }
+
+        public override async Task<GrpcItems.Article> GetFullContent(ArticleSource request, ServerCallContext context)
+        {
+            var sr = new Reader(request.Uri) { LoggerDelegate = Console.WriteLine };
+            var smArticle = await sr.GetArticleAsync();
+            if (smArticle.IsReadable)
+            {
+                var article = new GrpcItems.Article
+                {
+                    TimeToRead = smArticle.TimeToRead.ToDuration(),
+                    Length = smArticle.Length,
+                    SiteName = smArticle.SiteName,
+                    Language = smArticle.Language,
+                    Excerpt = smArticle.Excerpt,
+                    Content = smArticle.TextContent,
+                    FeaturedImage = smArticle.FeaturedImage,
+                    ByLine = smArticle.Byline,
+                    Title = smArticle.Title
+                };
+                if (!string.IsNullOrWhiteSpace(smArticle.Author))
+                {
+                    article.Author = smArticle.Author;
+                }
+                return article;
+            }
+            return new GrpcItems.Article();
         }
     }
 }
